@@ -1,4 +1,5 @@
 # Definition for a binary tree node.
+from operator import truediv
 from posixpath import isabs
 
 
@@ -33,6 +34,16 @@ class Solution:
 
             return ( left[0] and right[0] and abs(left[1] - right[1]) <= 1 , 1 + max(left[1], right[1]) )
         return dfs(root)[0]
+    
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        if p is None and q is None:
+            return True
+        if p is None or q is None:
+            return False
+        left = self.isSameTree(p.left, q.left)
+        right = self.isSameTree(p.right, q.right)
+
+        return p.val == q.val and left and right
 
 s = Solution()
 four = TreeNode(4)
