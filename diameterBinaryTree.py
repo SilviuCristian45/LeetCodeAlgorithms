@@ -44,6 +44,43 @@ class Solution:
         right = self.isSameTree(p.right, q.right)
 
         return p.val == q.val and left and right
+    
+    def binaryTreeTraversal(self, root: TreeNode) -> list[list[int]]:
+        #facem un bfs
+        queue = [root]
+        result = []
+
+        while len(queue) > 0:
+            
+            tempResult = []
+            for _ in range(len(queue)):
+                currentNode = queue.pop(0)   
+                if currentNode:   
+                    tempResult.append(currentNode.val)
+                    queue.append(currentNode.left)
+                    queue.append(currentNode.right)
+                
+            if len(tempResult) > 0:
+                result.append(tempResult)
+        return result
+    
+    def rightSideView(self, root: TreeNode) -> list[int]:
+        queue = [root]
+        result = []
+
+        while len(queue) > 0:
+            rightSide = None
+            for _ in range(len(queue)):
+                currentNode = queue.pop() 
+                if currentNode:   
+                    rightSide = currentNode
+                    queue.append(currentNode.left)
+                    queue.append(currentNode.right)
+                
+            if rightSide:
+                result.append(rightSide.val)
+        return result
+
 
 s = Solution()
 four = TreeNode(4)
@@ -55,3 +92,6 @@ res = s.diameterOfBinaryTree(head)
 print(res)
 res2 = s.isBalanced(head)
 print(res2)
+
+res3 = s.binaryTreeTraversal(head)
+print(res3)
