@@ -1,12 +1,17 @@
-def topKFrequent(nums: list[int], k: int) -> list[int]:
-    frequencies = dict()
-    for num in nums:
-        if num not in frequencies:
-            frequencies[num] = 0
-        frequencies[num]+=1
-    items = list(frequencies.items())
-    items.sort(key=lambda item: item[1], reverse=True)
-    return [item[0] for item in items[0:k]]
+import heapq
 
-result = topKFrequent(nums = [1], k = 1)
-print(result)
+class Solution:
+    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+        res = []
+        lastVal = None
+        while k > 0:
+            topOfHeap = heapq.heappop(nums)
+            if lastVal != topOfHeap:
+                res.append(topOfHeap)
+                lastVal = topOfHeap
+                k -= 1
+        return res
+
+s = Solution()
+res = s.topKFrequent([1,1,1,2,2,3], 2)
+print(res)
